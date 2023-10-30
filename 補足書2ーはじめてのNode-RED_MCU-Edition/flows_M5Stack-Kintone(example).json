@@ -1,0 +1,622 @@
+[
+    {
+        "id": "ca247a3a21abaac9",
+        "type": "tab",
+        "label": "M5Stack-Kintone(example)",
+        "disabled": false,
+        "info": "",
+        "env": [],
+        "_mcu": {
+            "mcu": false
+        }
+    },
+    {
+        "id": "6ba1a3efd2fb8182",
+        "type": "junction",
+        "z": "ca247a3a21abaac9",
+        "x": 940,
+        "y": 300,
+        "wires": [
+            [
+                "29485e3560ce49d5",
+                "a03a3681f3ebbab3"
+            ]
+        ]
+    },
+    {
+        "id": "335bf76392037e9e",
+        "type": "junction",
+        "z": "ca247a3a21abaac9",
+        "x": 936.6666666666665,
+        "y": 221.1111111111111,
+        "wires": [
+            [
+                "0e645b570205bc33",
+                "1c3844f879c0fb3c"
+            ]
+        ]
+    },
+    {
+        "id": "16ac1109577ad9a9",
+        "type": "mcu_digital_in",
+        "z": "ca247a3a21abaac9",
+        "name": "button-center",
+        "pin": "38",
+        "mode": "Input",
+        "edge": "2",
+        "debounce": "50",
+        "initial": false,
+        "invert": false,
+        "_mcu": {
+            "mcu": false
+        },
+        "x": 210,
+        "y": 160,
+        "wires": [
+            [
+                "4360c09ccb2a97b3"
+            ]
+        ]
+    },
+    {
+        "id": "5314617c3ba0648a",
+        "type": "function",
+        "z": "ca247a3a21abaac9",
+        "name": "datetime",
+        "func": "let date = new Date();\nmsg.payload.datetime = date.toISOString();\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [
+            {
+                "var": "Net",
+                "module": "net"
+            }
+        ],
+        "_mcu": {
+            "mcu": false
+        },
+        "x": 480,
+        "y": 220,
+        "wires": [
+            [
+                "5ec79e235c101f64"
+            ]
+        ]
+    },
+    {
+        "id": "4360c09ccb2a97b3",
+        "type": "sensor",
+        "z": "ca247a3a21abaac9",
+        "name": "",
+        "platform": "",
+        "module": "embedded:sensor/Humidity-Temperature/SHT3x",
+        "options": {
+            "sensor": {
+                "io": "I2C",
+                "bus": "default",
+                "address": "0x44"
+            }
+        },
+        "configuration": "{}",
+        "moddable_manifest": {
+            "include": [
+                "$(NODEREDMCU)/nodes/mcu/sensor/manifest.json",
+                "$(MODDABLE)/modules/drivers/sensors/sht3x/manifest.json"
+            ]
+        },
+        "_mcu": {
+            "mcu": false
+        },
+        "x": 350,
+        "y": 220,
+        "wires": [
+            [
+                "5314617c3ba0648a"
+            ]
+        ]
+    },
+    {
+        "id": "327d69bade2d767d",
+        "type": "inject",
+        "z": "ca247a3a21abaac9",
+        "name": "",
+        "props": [],
+        "repeat": "900",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "_mcu": {
+            "mcu": false
+        },
+        "x": 210,
+        "y": 220,
+        "wires": [
+            [
+                "4360c09ccb2a97b3"
+            ]
+        ]
+    },
+    {
+        "id": "e45e84caf2210643",
+        "type": "change",
+        "z": "ca247a3a21abaac9",
+        "name": "simulated value",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.module_id",
+                "pt": "msg",
+                "to": "simulated",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "_mcu": {
+            "mcu": false
+        },
+        "x": 420,
+        "y": 280,
+        "wires": [
+            [
+                "a669f6a109c1b292"
+            ]
+        ]
+    },
+    {
+        "id": "efb4828d339888cb",
+        "type": "debug",
+        "z": "ca247a3a21abaac9",
+        "name": "result",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "_mcu": {
+            "mcu": false
+        },
+        "x": 990,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "9573ac56cce11014",
+        "type": "function",
+        "z": "ca247a3a21abaac9",
+        "name": "kintone api",
+        "func": "let access_token = \"< my API token >\";\nlet application_id = \"< my APP id \";\n\nlet token = {\n    \"X-Cybozu-API-Token\": access_token\n}\n\nlet record = {\n    \"app\": application_id,\n    \"record\":\n    {\n        \"datetime\": { \"value\": msg.payload.datetime },\n        \"module_id\": { \"value\": msg.payload.module_id },\n        \"temp\": { \"value\": msg.payload.thermometer.temperature },\n        \"humid\": { \"value\": msg.payload.hygrometer.humidity },\n    }\n}\n\nmsg.headers = token;\nmsg.payload = record;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "_mcu": {
+            "mcu": false
+        },
+        "x": 670,
+        "y": 400,
+        "wires": [
+            [
+                "8a552851b4c248f4"
+            ]
+        ]
+    },
+    {
+        "id": "8a552851b4c248f4",
+        "type": "http request",
+        "z": "ca247a3a21abaac9",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://< my domain>.cybozu.com/k/v1/record.json",
+        "tls": "f2be4c023871012c",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "_mcu": {
+            "mcu": false
+        },
+        "x": 850,
+        "y": 400,
+        "wires": [
+            [
+                "efb4828d339888cb"
+            ]
+        ]
+    },
+    {
+        "id": "6154bf629fc87376",
+        "type": "function",
+        "z": "ca247a3a21abaac9",
+        "name": "get moduleID",
+        "func": "let module_id = Net.get(\"MAC\");\nmsg.payload.module_id = module_id.substr(12, 2) + module_id.substr(15);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [
+            {
+                "var": "Net",
+                "module": "net"
+            }
+        ],
+        "_mcu": {
+            "mcu": false
+        },
+        "x": 410,
+        "y": 320,
+        "wires": [
+            [
+                "a669f6a109c1b292"
+            ]
+        ]
+    },
+    {
+        "id": "26b2531ccc3e4488",
+        "type": "change",
+        "z": "ca247a3a21abaac9",
+        "name": "humidity",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.hygrometer.humidity",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "humid",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "_mcu": {
+            "mcu": false
+        },
+        "x": 780,
+        "y": 300,
+        "wires": [
+            [
+                "6ba1a3efd2fb8182"
+            ]
+        ]
+    },
+    {
+        "id": "a669f6a109c1b292",
+        "type": "function",
+        "z": "ca247a3a21abaac9",
+        "name": "round",
+        "func": "msg.payload.thermometer.temperature = (Math.round(msg.payload.thermometer.temperature * 100)) / 100;\nmsg.payload.hygrometer.humidity = (Math.round(msg.payload.hygrometer.humidity * 100)) / 100;\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "_mcu": {
+            "mcu": false
+        },
+        "x": 590,
+        "y": 300,
+        "wires": [
+            [
+                "26b2531ccc3e4488",
+                "6ffc1321759a9f1a",
+                "9573ac56cce11014"
+            ]
+        ]
+    },
+    {
+        "id": "1c3844f879c0fb3c",
+        "type": "ui_chart",
+        "z": "ca247a3a21abaac9",
+        "name": "",
+        "group": "b729adbe09876f95",
+        "order": 3,
+        "width": 4,
+        "height": 3,
+        "label": "",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": "12",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "_mcu": {
+            "mcu": false
+        },
+        "x": 1030,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6ffc1321759a9f1a",
+        "type": "change",
+        "z": "ca247a3a21abaac9",
+        "name": "temperature",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.thermometer.temperature",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "temp",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "_mcu": {
+            "mcu": false
+        },
+        "x": 790,
+        "y": 220,
+        "wires": [
+            [
+                "335bf76392037e9e"
+            ]
+        ]
+    },
+    {
+        "id": "5ec79e235c101f64",
+        "type": "switch",
+        "z": "ca247a3a21abaac9",
+        "name": "",
+        "property": "payload.simulated",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "_mcu": {
+            "mcu": false
+        },
+        "x": 230,
+        "y": 300,
+        "wires": [
+            [
+                "e45e84caf2210643"
+            ],
+            [
+                "6154bf629fc87376"
+            ]
+        ]
+    },
+    {
+        "id": "0e645b570205bc33",
+        "type": "ui_text",
+        "z": "ca247a3a21abaac9",
+        "group": "b729adbe09876f95",
+        "order": 1,
+        "width": 4,
+        "height": 2,
+        "name": "",
+        "label": "temperature",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "className": "",
+        "_mcu": {
+            "mcu": false
+        },
+        "x": 1050,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "29485e3560ce49d5",
+        "type": "ui_text",
+        "z": "ca247a3a21abaac9",
+        "group": "b729adbe09876f95",
+        "order": 2,
+        "width": 4,
+        "height": 2,
+        "name": "",
+        "label": "humidity",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "className": "",
+        "_mcu": {
+            "mcu": false
+        },
+        "x": 1040,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "a03a3681f3ebbab3",
+        "type": "ui_chart",
+        "z": "ca247a3a21abaac9",
+        "name": "",
+        "group": "b729adbe09876f95",
+        "order": 4,
+        "width": 4,
+        "height": 3,
+        "label": "",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": "12",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "_mcu": {
+            "mcu": false
+        },
+        "x": 1030,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2cb57caebdd03660",
+        "type": "mcu_digital_in",
+        "z": "ca247a3a21abaac9",
+        "name": "button-right",
+        "pin": "37",
+        "mode": "Input",
+        "edge": "2",
+        "debounce": "50",
+        "initial": false,
+        "invert": false,
+        "_mcu": {
+            "mcu": false
+        },
+        "x": 590,
+        "y": 160,
+        "wires": [
+            [
+                "6248cfe134bc0ae0"
+            ]
+        ]
+    },
+    {
+        "id": "6248cfe134bc0ae0",
+        "type": "change",
+        "z": "ca247a3a21abaac9",
+        "name": "clear chart",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[]",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "_mcu": {
+            "mcu": false
+        },
+        "x": 790,
+        "y": 160,
+        "wires": [
+            [
+                "335bf76392037e9e",
+                "6ba1a3efd2fb8182"
+            ]
+        ]
+    },
+    {
+        "id": "f2be4c023871012c",
+        "type": "tls-config",
+        "name": "<my tls setting>",
+        "cert": "",
+        "key": "",
+        "ca": "",
+        "certname": "",
+        "keyname": "",
+        "caname": "",
+        "servername": "",
+        "verifyservercert": true,
+        "alpnprotocol": "",
+        "_mcu": {
+            "mcu": false
+        }
+    },
+    {
+        "id": "b729adbe09876f95",
+        "type": "ui_group",
+        "name": "environment",
+        "tab": "f247e28fc29797c0",
+        "order": 1,
+        "disp": false,
+        "width": 8,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "f247e28fc29797c0",
+        "type": "ui_tab",
+        "name": "M5stack - Kintone by node-red-mcu",
+        "icon": "dashboard",
+        "order": 2,
+        "disabled": false,
+        "hidden": false
+    }
+]
