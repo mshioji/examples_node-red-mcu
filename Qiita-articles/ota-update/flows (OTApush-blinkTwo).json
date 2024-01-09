@@ -1,0 +1,163 @@
+[
+    {
+        "id": "4f366d44eb12425c",
+        "type": "tab",
+        "label": "OTA Push - blinkTwo",
+        "disabled": false,
+        "info": "",
+        "env": [],
+        "_mcu": {
+            "mcu": true
+        }
+    },
+    {
+        "id": "fcd91e1e34113b57",
+        "type": "inject",
+        "z": "4f366d44eb12425c",
+        "name": "",
+        "props": [],
+        "repeat": ".5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "_mcu": {
+            "mcu": true
+        },
+        "x": 130,
+        "y": 100,
+        "wires": [
+            [
+                "6df675512815f3f2"
+            ]
+        ]
+    },
+    {
+        "id": "1595d3fb557a72f4",
+        "type": "mcu_digital_out",
+        "z": "4f366d44eb12425c",
+        "name": "",
+        "pin": "26",
+        "mode": "Output",
+        "initial": "1",
+        "invert": false,
+        "moddable_manifest": {
+            "include": "$(NODEREDMCU)/nodes/mcu/digital/manifest.json"
+        },
+        "_mcu": {
+            "mcu": true
+        },
+        "x": 490,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "da20a5bf208e599b",
+        "type": "ota-update",
+        "z": "4f366d44eb12425c",
+        "name": "OTA update - Push",
+        "path": "/ota/firmware",
+        "moddable_manifest": {
+            "include": "$(NODEREDMCU)/nodes/ota-update/manifest.json"
+        },
+        "_mcu": {
+            "mcu": true
+        },
+        "x": 310,
+        "y": 260,
+        "wires": [
+            [
+                "0a4751d6dab1c898"
+            ]
+        ]
+    },
+    {
+        "id": "0a4751d6dab1c898",
+        "type": "mcu_restart",
+        "z": "4f366d44eb12425c",
+        "name": "",
+        "moddable_manifest": {
+            "include": "$(NODEREDMCU)/nodes/restart/manifest.json"
+        },
+        "_mcu": {
+            "mcu": true
+        },
+        "x": 490,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "6df675512815f3f2",
+        "type": "trigger",
+        "z": "4f366d44eb12425c",
+        "name": "",
+        "op1": "1",
+        "op2": "0",
+        "op1type": "val",
+        "op2type": "val",
+        "duration": "250",
+        "extend": "false",
+        "overrideDelay": "false",
+        "units": "ms",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "_mcu": {
+            "mcu": true
+        },
+        "x": 300,
+        "y": 100,
+        "wires": [
+            [
+                "1595d3fb557a72f4",
+                "dacb8cd554e869fa"
+            ]
+        ]
+    },
+    {
+        "id": "32e3fcbf2340e80f",
+        "type": "comment",
+        "z": "4f366d44eb12425c",
+        "name": "ファームウェア更新（Push）",
+        "info": "",
+        "_mcu": {
+            "mcu": true
+        },
+        "x": 180,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "b8ba0ca4236cddb2",
+        "type": "comment",
+        "z": "4f366d44eb12425c",
+        "name": "メイン処理　２灯点滅",
+        "info": "",
+        "_mcu": {
+            "mcu": true
+        },
+        "x": 160,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "dacb8cd554e869fa",
+        "type": "mcu_digital_out",
+        "z": "4f366d44eb12425c",
+        "name": "",
+        "pin": "27",
+        "mode": "Output",
+        "initial": "0",
+        "invert": true,
+        "moddable_manifest": {
+            "include": "$(NODEREDMCU)/nodes/mcu/digital/manifest.json"
+        },
+        "_mcu": {
+            "mcu": true
+        },
+        "x": 490,
+        "y": 160,
+        "wires": []
+    }
+]

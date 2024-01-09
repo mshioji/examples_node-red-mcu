@@ -1,0 +1,224 @@
+[
+    {
+        "id": "77f4a93ffac31047",
+        "type": "tab",
+        "label": "OTA Pull - blinkTwo",
+        "disabled": false,
+        "info": "",
+        "env": [],
+        "_mcu": {
+            "mcu": false
+        }
+    },
+    {
+        "id": "daade2b88ae061f6",
+        "type": "inject",
+        "z": "77f4a93ffac31047",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": ".5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "_mcu": {
+            "mcu": false
+        },
+        "x": 130,
+        "y": 100,
+        "wires": [
+            [
+                "d4ecfdd1f7a34aef"
+            ]
+        ]
+    },
+    {
+        "id": "41dbca9a1a6e3f09",
+        "type": "mcu_digital_out",
+        "z": "77f4a93ffac31047",
+        "name": "",
+        "pin": "26",
+        "mode": "Output",
+        "initial": "1",
+        "invert": false,
+        "moddable_manifest": {
+            "include": "$(NODEREDMCU)/nodes/mcu/digital/manifest.json"
+        },
+        "_mcu": {
+            "mcu": false
+        },
+        "x": 490,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "e6fa686af77458fb",
+        "type": "mcu_digital_out",
+        "z": "77f4a93ffac31047",
+        "name": "",
+        "pin": "27",
+        "mode": "Output",
+        "initial": "0",
+        "invert": true,
+        "moddable_manifest": {
+            "include": "$(NODEREDMCU)/nodes/mcu/digital/manifest.json"
+        },
+        "_mcu": {
+            "mcu": false
+        },
+        "x": 490,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "8eb14e3f73fc807f",
+        "type": "mcu_restart",
+        "z": "77f4a93ffac31047",
+        "name": "",
+        "moddable_manifest": {
+            "include": "$(NODEREDMCU)/nodes/restart/manifest.json"
+        },
+        "_mcu": {
+            "mcu": false
+        },
+        "x": 670,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "d4ecfdd1f7a34aef",
+        "type": "trigger",
+        "z": "77f4a93ffac31047",
+        "name": "",
+        "op1": "1",
+        "op2": "0",
+        "op1type": "val",
+        "op2type": "val",
+        "duration": "250",
+        "extend": "false",
+        "overrideDelay": "false",
+        "units": "ms",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "_mcu": {
+            "mcu": false
+        },
+        "x": 300,
+        "y": 100,
+        "wires": [
+            [
+                "41dbca9a1a6e3f09",
+                "e6fa686af77458fb"
+            ]
+        ]
+    },
+    {
+        "id": "56c515596a25f115",
+        "type": "ota-update",
+        "z": "77f4a93ffac31047",
+        "name": "OTA update - Pull",
+        "path": "",
+        "moddable_manifest": {
+            "include": "$(NODEREDMCU)/nodes/ota-update/manifest.json"
+        },
+        "_mcu": {
+            "mcu": false
+        },
+        "x": 510,
+        "y": 260,
+        "wires": [
+            [
+                "8eb14e3f73fc807f"
+            ]
+        ]
+    },
+    {
+        "id": "7740a74d9367c4c8",
+        "type": "comment",
+        "z": "77f4a93ffac31047",
+        "name": "メイン処理　２灯点滅",
+        "info": "",
+        "_mcu": {
+            "mcu": false
+        },
+        "x": 160,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "86375576f08365d4",
+        "type": "comment",
+        "z": "77f4a93ffac31047",
+        "name": "ファームウェア更新（Pull）",
+        "info": "",
+        "_mcu": {
+            "mcu": false
+        },
+        "x": 180,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "950162607e506acc",
+        "type": "change",
+        "z": "77f4a93ffac31047",
+        "name": "blinkOne指定",
+        "rules": [
+            {
+                "t": "set",
+                "p": "url",
+                "pt": "msg",
+                "to": "http://192.168.1.12/firmware/blinkOne.bin",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "_mcu": {
+            "mcu": false
+        },
+        "x": 330,
+        "y": 260,
+        "wires": [
+            [
+                "56c515596a25f115"
+            ]
+        ]
+    },
+    {
+        "id": "6cb9f25ddcf24783",
+        "type": "mcu_digital_in",
+        "z": "77f4a93ffac31047",
+        "name": "Update ボタン 12",
+        "pin": "12",
+        "mode": "InputPullUp",
+        "edge": "2",
+        "debounce": "50",
+        "initial": false,
+        "invert": false,
+        "moddable_manifest": {
+            "include": "$(NODEREDMCU)/nodes/mcu/digital/manifest.json"
+        },
+        "_mcu": {
+            "mcu": false
+        },
+        "x": 150,
+        "y": 260,
+        "wires": [
+            [
+                "950162607e506acc"
+            ]
+        ]
+    }
+]
