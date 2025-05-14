@@ -1,0 +1,636 @@
+[
+    {
+        "id": "dc83b5e6c526a9fa",
+        "type": "tab",
+        "label": "Control-MicroBitCar",
+        "disabled": false,
+        "info": "",
+        "env": [],
+        "_mcu": {
+            "mcu": false
+        }
+    },
+    {
+        "id": "d36deffee3384a8f",
+        "type": "mqtt out",
+        "z": "dc83b5e6c526a9fa",
+        "name": "",
+        "topic": "topic/microbitcar/motor",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "72d1a818c6ae1d2e",
+        "_mcu": {
+            "mcu": false
+        },
+        "x": 880,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "a9dbea8c3c90dffb",
+        "type": "ui_button",
+        "z": "dc83b5e6c526a9fa",
+        "name": "",
+        "group": "e34806ec31cc5fa0",
+        "order": 2,
+        "width": 4,
+        "height": 2,
+        "passthru": true,
+        "label": "前進",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "green",
+        "className": "",
+        "icon": "",
+        "payload": "fwd",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "_mcu": {
+            "mcu": false
+        },
+        "x": 370,
+        "y": 240,
+        "wires": [
+            [
+                "b9a79ad4c2bfda02"
+            ]
+        ]
+    },
+    {
+        "id": "fed933de41c26080",
+        "type": "ui_button",
+        "z": "dc83b5e6c526a9fa",
+        "name": "",
+        "group": "e34806ec31cc5fa0",
+        "order": 7,
+        "width": 4,
+        "height": 2,
+        "passthru": true,
+        "label": "停止",
+        "tooltip": "",
+        "color": "black",
+        "bgcolor": "pink",
+        "className": "",
+        "icon": "",
+        "payload": "stp",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "_mcu": {
+            "mcu": false
+        },
+        "x": 370,
+        "y": 280,
+        "wires": [
+            [
+                "b9a79ad4c2bfda02"
+            ]
+        ]
+    },
+    {
+        "id": "0c7cb4b9c0f6142b",
+        "type": "ui_button",
+        "z": "dc83b5e6c526a9fa",
+        "name": "",
+        "group": "e34806ec31cc5fa0",
+        "order": 12,
+        "width": 4,
+        "height": 2,
+        "passthru": true,
+        "label": "後退",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "orange",
+        "className": "",
+        "icon": "",
+        "payload": "bwd",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "_mcu": {
+            "mcu": false
+        },
+        "x": 370,
+        "y": 320,
+        "wires": [
+            [
+                "b9a79ad4c2bfda02"
+            ]
+        ]
+    },
+    {
+        "id": "c3fe93a72d79e581",
+        "type": "ui_slider",
+        "z": "dc83b5e6c526a9fa",
+        "name": "",
+        "label": "LR",
+        "tooltip": "",
+        "group": "e34806ec31cc5fa0",
+        "order": 18,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "min": "0",
+        "max": "100",
+        "step": "5",
+        "className": "",
+        "_mcu": {
+            "mcu": false
+        },
+        "x": 370,
+        "y": 400,
+        "wires": [
+            [
+                "be1958c6364a7499"
+            ]
+        ]
+    },
+    {
+        "id": "851fcee5fd09bbfe",
+        "type": "inject",
+        "z": "dc83b5e6c526a9fa",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "50",
+        "payloadType": "num",
+        "_mcu": {
+            "mcu": false
+        },
+        "x": 230,
+        "y": 400,
+        "wires": [
+            [
+                "c3fe93a72d79e581"
+            ]
+        ]
+    },
+    {
+        "id": "16d0281b53456a43",
+        "type": "inject",
+        "z": "dc83b5e6c526a9fa",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "forward",
+        "payloadType": "str",
+        "_mcu": {
+            "mcu": false
+        },
+        "x": 230,
+        "y": 240,
+        "wires": [
+            [
+                "a9dbea8c3c90dffb"
+            ]
+        ]
+    },
+    {
+        "id": "3f1e01fd98c6ebfa",
+        "type": "inject",
+        "z": "dc83b5e6c526a9fa",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "stop",
+        "payloadType": "str",
+        "_mcu": {
+            "mcu": false
+        },
+        "x": 230,
+        "y": 280,
+        "wires": [
+            [
+                "fed933de41c26080"
+            ]
+        ]
+    },
+    {
+        "id": "b304673a230dfe05",
+        "type": "inject",
+        "z": "dc83b5e6c526a9fa",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "backward",
+        "payloadType": "str",
+        "_mcu": {
+            "mcu": false
+        },
+        "x": 240,
+        "y": 320,
+        "wires": [
+            [
+                "0c7cb4b9c0f6142b"
+            ]
+        ]
+    },
+    {
+        "id": "fc17f01d2ad73b91",
+        "type": "ui_slider",
+        "z": "dc83b5e6c526a9fa",
+        "name": "",
+        "label": "速度",
+        "tooltip": "",
+        "group": "e34806ec31cc5fa0",
+        "order": 16,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "min": "0",
+        "max": "100",
+        "step": "5",
+        "className": "",
+        "_mcu": {
+            "mcu": false
+        },
+        "x": 370,
+        "y": 460,
+        "wires": [
+            [
+                "ec95c55e8ef81b02"
+            ]
+        ]
+    },
+    {
+        "id": "8a95caa691c71007",
+        "type": "inject",
+        "z": "dc83b5e6c526a9fa",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0",
+        "payloadType": "num",
+        "_mcu": {
+            "mcu": false
+        },
+        "x": 230,
+        "y": 460,
+        "wires": [
+            [
+                "fc17f01d2ad73b91"
+            ]
+        ]
+    },
+    {
+        "id": "be1958c6364a7499",
+        "type": "change",
+        "z": "dc83b5e6c526a9fa",
+        "name": "L/R",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.lr",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "_mcu": {
+            "mcu": false
+        },
+        "x": 490,
+        "y": 400,
+        "wires": [
+            [
+                "b9a79ad4c2bfda02"
+            ]
+        ]
+    },
+    {
+        "id": "ec95c55e8ef81b02",
+        "type": "change",
+        "z": "dc83b5e6c526a9fa",
+        "name": "SPEED",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.speed",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "_mcu": {
+            "mcu": false
+        },
+        "x": 500,
+        "y": 460,
+        "wires": [
+            [
+                "b9a79ad4c2bfda02"
+            ]
+        ]
+    },
+    {
+        "id": "d05658868fdd0b3e",
+        "type": "debug",
+        "z": "dc83b5e6c526a9fa",
+        "name": "debug 14",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "_mcu": {
+            "mcu": false
+        },
+        "x": 840,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "b9a79ad4c2bfda02",
+        "type": "function",
+        "z": "dc83b5e6c526a9fa",
+        "name": "function",
+        "func": "// flowから以前の状態を取得（初期値）\nlet speed = flow.get('last_speed') || 0.0;\nlet lr = flow.get('last_lr') || 50;\nlet dir = flow.get('last_dir');\nlet stopped = flow.get('stopped');\n\nif (dir !== 0 && dir !== 1) dir = 1;        // 初期は前進\nif (typeof stopped !== 'boolean') stopped = false;\n\n// payloadの種類で分岐\nif (typeof msg.payload === 'object') {\n    if ('speed' in msg.payload) {\n        let newSpeed = Math.max(0, Math.min(msg.payload.speed, 100)) / 100;\n        speed = newSpeed;\n        flow.set('last_speed', speed);\n    }\n    if ('lr' in msg.payload) {\n        lr = Math.max(0, Math.min(msg.payload.lr, 100));\n        flow.set('last_lr', lr);\n    }\n\n    // 停止中ならモーターは動かさない\n    if (stopped) {\n        return null;  // 出力しない\n    }\n}\n\nif (msg.payload === \"stp\") {\n    stopped = true;\n    flow.set('stopped', true);\n\n    // pwmを0にして出力（保持されたspeed/lrはそのまま）\n    msg.payload = {\n        motor: {\n            right: {\n                pwm: 0.0,\n                dir: dir\n            },\n            left: {\n                pwm: 0.0,\n                dir: dir\n            }\n        }\n    };\n    return msg;\n}\n\nif (msg.payload === \"fwd\" || msg.payload === \"bwd\") {\n    stopped = false;\n    flow.set('stopped', false);\n    dir = (msg.payload === \"fwd\") ? 1 : 0;\n    flow.set('last_dir', dir);\n}\n\n// 停止中でなければpwmを計算して出力\nif (!stopped) {\n    // 左右の比率\n    let leftRatio = (100 - lr) / 100 * 2;\n    let rightRatio = lr / 100 * 2;\n\n    let leftPwm = Math.min(0.8, speed * leftRatio);\n    let rightPwm = Math.min(0.8, speed * rightRatio);\n\n    msg.payload = {\n        motor: {\n            right: {\n                pwm: parseFloat(rightPwm.toFixed(2)),\n                dir: dir\n            },\n            left: {\n                pwm: parseFloat(leftPwm.toFixed(2)),\n                dir: dir\n            }\n        }\n    };\n\n    return msg;\n}\n\nreturn null;  // 停止中などで出力不要のとき\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "_mcu": {
+            "mcu": false
+        },
+        "x": 680,
+        "y": 280,
+        "wires": [
+            [
+                "d05658868fdd0b3e",
+                "d36deffee3384a8f"
+            ]
+        ]
+    },
+    {
+        "id": "231f9ee0cdcfcb64",
+        "type": "ui_spacer",
+        "z": "dc83b5e6c526a9fa",
+        "name": "spacer",
+        "group": "e34806ec31cc5fa0",
+        "order": 1,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "0bb13617be955ecd",
+        "type": "ui_spacer",
+        "z": "dc83b5e6c526a9fa",
+        "name": "spacer",
+        "group": "e34806ec31cc5fa0",
+        "order": 3,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "99e2018c3c4534a9",
+        "type": "ui_spacer",
+        "z": "dc83b5e6c526a9fa",
+        "name": "spacer",
+        "group": "e34806ec31cc5fa0",
+        "order": 4,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "03536fa63fd36b9d",
+        "type": "ui_spacer",
+        "z": "dc83b5e6c526a9fa",
+        "name": "spacer",
+        "group": "e34806ec31cc5fa0",
+        "order": 5,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "b36e808c7ae65b6d",
+        "type": "ui_spacer",
+        "z": "dc83b5e6c526a9fa",
+        "name": "spacer",
+        "group": "e34806ec31cc5fa0",
+        "order": 6,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "cf9e8aac83f596c4",
+        "type": "ui_spacer",
+        "z": "dc83b5e6c526a9fa",
+        "name": "spacer",
+        "group": "e34806ec31cc5fa0",
+        "order": 8,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "e4b1e43823c942ba",
+        "type": "ui_spacer",
+        "z": "dc83b5e6c526a9fa",
+        "name": "spacer",
+        "group": "e34806ec31cc5fa0",
+        "order": 9,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "4e9794e159abecf1",
+        "type": "ui_spacer",
+        "z": "dc83b5e6c526a9fa",
+        "name": "spacer",
+        "group": "e34806ec31cc5fa0",
+        "order": 10,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "6734bb96e54e492f",
+        "type": "ui_spacer",
+        "z": "dc83b5e6c526a9fa",
+        "name": "spacer",
+        "group": "e34806ec31cc5fa0",
+        "order": 11,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "cea633ef3e1ef0bc",
+        "type": "ui_spacer",
+        "z": "dc83b5e6c526a9fa",
+        "name": "spacer",
+        "group": "e34806ec31cc5fa0",
+        "order": 13,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "d48c0654db58615e",
+        "type": "ui_spacer",
+        "z": "dc83b5e6c526a9fa",
+        "name": "spacer",
+        "group": "e34806ec31cc5fa0",
+        "order": 14,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "1bd01023a7128329",
+        "type": "ui_spacer",
+        "z": "dc83b5e6c526a9fa",
+        "name": "spacer",
+        "group": "e34806ec31cc5fa0",
+        "order": 15,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "00d2e4d7d3bd58c9",
+        "type": "ui_spacer",
+        "z": "dc83b5e6c526a9fa",
+        "name": "spacer",
+        "group": "e34806ec31cc5fa0",
+        "order": 17,
+        "width": 6,
+        "height": 1
+    },
+    {
+        "id": "72d1a818c6ae1d2e",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "localhost",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": "",
+        "_mcu": {
+            "mcu": false
+        }
+    },
+    {
+        "id": "e34806ec31cc5fa0",
+        "type": "ui_group",
+        "name": "MotorControl",
+        "tab": "2cc73d29123c9d84",
+        "order": 1,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": "",
+        "_mcu": {
+            "mcu": false
+        }
+    },
+    {
+        "id": "2cc73d29123c9d84",
+        "type": "ui_tab",
+        "name": "MicroBitCar",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false,
+        "_mcu": {
+            "mcu": false
+        }
+    }
+]
